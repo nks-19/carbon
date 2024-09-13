@@ -1,4 +1,22 @@
 const emissionLimit = 1000;
+const apiUrl ='http://localhost:5000/api/user-coal-mines/many'
+
+const addCoalMine = async (coalMine) => {
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(coalMine)
+    });
+
+    if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+    }
+
+    return response.json();
+};
 document.addEventListener('DOMContentLoaded', () => {
     // Scroll to form section when "Get Started" button is clicked
     const getStartedButton = document.getElementById('get-started-btn');
@@ -34,6 +52,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const ventilationEmissions = ventilationElectricity * electricityEmissionFactor;
         const generatorsEmissions = generatorsDiesel * dieselEmissionFactor;
 
+        // Call the addCoalMine function
+        addCoalMine({
+            type: 'open-pit',
+            capacity: 1000,
+            distanceToPowerPlant: 200,
+            transportMode: 'Truck',
+            dieselUsage: {
+                extraction: coalExtractionDiesel,
+                crane: craneOperationDiesel,
+                transportation: transportationDiesel,
+                generators: generatorsDiesel
+            },
+            electricityUsage: {
+                processing: coalProcessingElectricity,
+                pumping: waterPumpingElectricity,
+                ventilation: ventilationElectricity
+            }
+        });
+        
         const totalEmissions = coalExtractionEmissions + craneOperationEmissions + transportationEmissions +
                                coalProcessingEmissions + waterPumpingEmissions + ventilationEmissions +
                                generatorsEmissions;
@@ -42,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalEmissionsTons = totalEmissions / 1000;
 
         // Calculate carbon sinks
-        const totalCarbonAbsorption = forestArea/365; // 1 acre absorbs 1 ton CO2 annually
+        const totalCarbonAbsorption = forestArea/5; // 1 acre absorbs 5 ton CO2 per day
         const emissionGap = totalEmissionsTons - totalCarbonAbsorption;
 
         // Update results
