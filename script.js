@@ -12,57 +12,91 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault(); // Prevent page from reloading
 
         // Retrieve values from the form
-        const coalExtractionDiesel = parseFloat(document.getElementById('coal-extraction-diesel').value) || 0;
-        const craneOperationDiesel = parseFloat(document.getElementById('crane-operation-diesel').value) || 0;
-        const transportationDiesel = parseFloat(document.getElementById('transportation-diesel').value) || 0;
-        const coalProcessingElectricity = parseFloat(document.getElementById('coal-processing-electricity').value) || 0;
-        const waterPumpingElectricity = parseFloat(document.getElementById('water-pumping-electricity').value) || 0;
-        const ventilationElectricity = parseFloat(document.getElementById('ventilation-electricity').value) || 0;
-        const generatorsDiesel = parseFloat(document.getElementById('generators-diesel').value) || 0;
-        const forestArea = parseFloat(document.getElementById('forest-area').value) || 0;
+        const miners=parseFloat(document.getElementById('miners').value) || 0;
+        const dragliners=parseFloat(document.getElementById('dragliners').value) || 0;
+        const excavators=parseFloat(document.getElementById('excavators').value) || 0;
+        const crushers=parseFloat(document.getElementById('crushers').value) || 0;
+        const ventilation= parseFloat(document.getElementById('ventilation-electricity').value) || 0;
+        const conveyors = parseFloat(document.getElementById('conveyors').value) || 0;
+        const rails = parseFloat(document.getElementById('rails').value) || 0;
+        const roads = parseFloat(document.getElementById('roads').value) || 0;
+        const waste = parseFloat(document.getElementById('waste').value) || 0;
+        const forest= parseFloat(document.getElementById('forest').value) || 0;
+        const wetlands = parseFloat(document.getElementById('wetlands').value) || 0;
+        const minelands = parseFloat(document.getElementById('minelands').value) || 0;
+        const bufferzone = parseFloat(document.getElementById('bufferzone').value) || 0;
+        const wetcreation = parseFloat(document.getElementById('wet-creation').value) || 0;
+        const argo = parseFloat(document.getElementById('argo').value) || 0;
+        const ccs = parseFloat(document.getElementById('ccs').value) || 0;
+
+
 
         // Emission Factors
         const dieselEmissionFactor = 2.68; // kg CO2 per liter
         const electricityEmissionFactor = 0.5; // kg CO2 per kWh
 
+
         // Calculate emissions
-        const coalExtractionEmissions = coalExtractionDiesel * dieselEmissionFactor;
-        const craneOperationEmissions = craneOperationDiesel * dieselEmissionFactor;
-        const transportationEmissions = transportationDiesel * dieselEmissionFactor;
-        const coalProcessingEmissions = coalProcessingElectricity * electricityEmissionFactor;
-        const waterPumpingEmissions = waterPumpingElectricity * electricityEmissionFactor;
-        const ventilationEmissions = ventilationElectricity * electricityEmissionFactor;
-        const generatorsEmissions = generatorsDiesel * dieselEmissionFactor;
 
-        const totalEmissions = coalExtractionEmissions + craneOperationEmissions + transportationEmissions +
-                               coalProcessingEmissions + waterPumpingEmissions + ventilationEmissions +
-                               generatorsEmissions;
+        const machineryemissions=((miners+dragliners+excavators+crushers)*dieselEmissionFactor*350)/1000;
+        const ventilationemissions = (ventilation * electricityEmissionFactor*30*24*350)/1000;
 
-        // Convert emissions to tons
-        const totalEmissionsTons = totalEmissions / 1000;
+        const processing=machineryemissions+ventilationemissions;
 
+        const conveyorsemissions=(conveyors*electricityEmissionFactor*24*5*350)/1000;
+        const railsemissions=(rails*0.5*200*5)/1000;
+        const roadssemissions=(roads*0.3*3*100*350)/1000;
+
+        const transportation=conveyorsemissions + railsemissions + roadssemissions;
+
+        const wasteemissions=waste*3.6667*200;
+
+        const totalEmissions=processing+transportation+wasteemissions;
+    
         // Calculate carbon sinks
-        const totalCarbonAbsorption = forestArea/365; // 1 acre absorbs 1 ton CO2 annually
-        const emissionGap = totalEmissionsTons - totalCarbonAbsorption;
+        const forestsink=forest*5*350;
+        const wetlandssink=wetlands*2000;
+
+        const totalCarbonAbsorption = forestsink+wetlandssink;
+        const emissionGap = totalEmissions - totalCarbonAbsorption;
+
+         //neutrality
+         const minelandsN=minelands*3*300;
+         const bufferzoneN=bufferzone*300;
+         const wetcreationN=wetcreation*2000;
+         const argoN=argo*4*300;
+         const totalneutrality=minelandsN+bufferzoneN+wetcreationN+argoN+ccs;
 
         // Update results
-        document.getElementById('coal-extraction-emissions').textContent = `Coal Extraction Emissions: ${coalExtractionEmissions.toFixed(2)} kg CO2`;
-        document.getElementById('crane-operation-emissions').textContent = `Crane Operation Emissions: ${craneOperationEmissions.toFixed(2)} kg CO2`;
-        document.getElementById('transportation-emissions').textContent = `Transportation Emissions: ${transportationEmissions.toFixed(2)} kg CO2`;
-        document.getElementById('coal-processing-emissions').textContent = `Coal Processing Emissions: ${coalProcessingEmissions.toFixed(2)} kg CO2`;
-        document.getElementById('water-pumping-emissions').textContent = `Water Pumping Emissions: ${waterPumpingEmissions.toFixed(2)} kg CO2`;
-        document.getElementById('ventilation-emissions').textContent = `Ventilation Systems Emissions: ${ventilationEmissions.toFixed(2)} kg CO2`;
-        document.getElementById('generators-emissions').textContent = `Generators Emissions: ${generatorsEmissions.toFixed(2)} kg CO2`;
-        document.getElementById('total-emissions').textContent = `Total Emissions: ${totalEmissions.toFixed(2)} kg CO2`;
-        document.getElementById('carbon-absorption').textContent = `Carbon Absorption (acres): ${totalCarbonAbsorption.toFixed(2)} tons CO2`;
+        document.getElementById('coal-processing-emissions').textContent = `Coal Processing Emissions: ${processing.toFixed(2)} tons CO2`;
+        document.getElementById('coal-transportation-emissions').textContent = `Coal Transportation Emissions: ${transportation.toFixed(2)} tons CO2`;
+        document.getElementById('Coal-waste-emissionss').textContent = `Coal Waste Emissions: ${wasteemissions.toFixed(2)} tons CO2`; 
+        document.getElementById('total-emissions').textContent = `Total Emissions: ${totalEmissions.toFixed(2)} tons CO2`;
+
+        document.getElementById('forest-sink').textContent = `Forest Absorption: ${forestsink.toFixed(2)} tons CO2`;
+        document.getElementById('wet-lands').textContent = `Wetlands Absorption: ${wetlandssink.toFixed(2)} tons CO2`;
+        
+        document.getElementById('carbon-absorption').textContent = `Total Carbon Absorption (acres): ${totalCarbonAbsorption.toFixed(2)} tons CO2`;
         document.getElementById('emission-gap').textContent = `Emission Gap: ${emissionGap.toFixed(2)} tons CO2`;
+
+        document.getElementById('wet-lands').textContent = `Wetlands Absorption: ${wetlandssink.toFixed(2)} tons CO2`;
+
+        // neutrality update data
+        document.getElementById('reclaimed-mine-lands').textContent = `Reclaimed Mine Lands Neutrality: ${minelandsN.toFixed(2)} tons CO2`;
+        document.getElementById('buffer-zone').textContent = `Buffer Zone Neutrality: ${bufferzoneN.toFixed(2)} tons CO2`;
+        document.getElementById('wetLand-creation').textContent = `WetLand Creation Neutrality: ${wetcreationN.toFixed(2)} tons CO2`;
+        document.getElementById('argoforestry-area').textContent = `Argoforestry Neutrality: ${argoN.toFixed(2)} tons CO2`;
+        document.getElementById('ccs-n').textContent = `CCS Neutrality: ${ccs.toFixed(2)} tons CO2`;
+        document.getElementById('total-neutrality').textContent = `Total Neutrality:${totalneutrality.toFixed(2)} tons CO2`;
+
+        
 
         // Scroll to results section
         document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
 
          // Show pathways section if emissions exceed limit
          const pathwaysSection = document.getElementById('pathways-section');
-         if (totalEmissionsTons > emissionLimit) {
+         if (totalEmissions > emissionLimit) {
              pathwaysSection.style.display = 'block'; // Show pathways section
          } else {
              pathwaysSection.style.display = 'none'; // Hide pathways section
@@ -77,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         new Chart(ctx1, {
             type: 'bar',
             data: {
-                labels: ['Coal Extraction', 'Crane Operation', 'Transportation', 'Coal Processing', 'Water Pumping', 'Ventilation', 'Generators'],
+                labels: ['Coal ', 'Crane Operation', 'Transportation', 'Coal Processing', 'Water Pumping', 'Ventilation', 'Generators'],
                 datasets: [{
                     label: 'Emissions (kg CO2)',
                     data: [
@@ -205,72 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-    });
-
-
-
-    function calculateCredits() {
-        // Get the values from the input fields
-        const TotalReduction = parseFloat(document.getElementById('total-reduction').value) || 0;
-        const marketRate = parseFloat(document.getElementById('market-rate').value) || 0;
-
-        // Calculate the estimated carbon credits and value
-        const EstimatedCredits = TotalReduction; // 1 ton CO2 = 1 credit
-        const EstimatedValue = EstimatedCredits * marketRate;
-
-        // Update the credits section
-        document.getElementById('total-reduction-result').textContent = `Total Reduction:${TotalReduction.toFixed(2)} tons CO2`;
-        document.getElementById('estimated-credits').textContent = `Estimated Credits:${EstimatedCredits.toFixed(2)} credits`;
-        document.getElementById('estimated-value').textContent = `Estimated Value:${EstimatedValue.toFixed(2)}`;
-
-        // Scroll to credits results section
-        document.getElementById('credits-results').scrollIntoView({ behavior: 'smooth' });
-
-        // Create pie chart for credits
-        const ctx4 = document.getElementById('credits-chart').getContext('2d');
-
-        new Chart(ctx4, {
-            type: 'bar',
-            data: {
-                labels: ['TotalReduction','Estimated Credits','Estimated Value'],
-                datasets: [{
-                    label: 'Carbon Credits (tons CO2)',
-                    data: [TotalReduction,EstimatedCredits,EstimatedValue],
-                    backgroundColor: ['#FF6384','#36A2EB','#FFCE56'],
-                    borderColor: ['#FF6384','#36A2EB','#FFCE56'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: '#444'
-                        },
-                        grid: {
-                            color: '#e0e0e0'
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: '#444'
-                        },
-                        grid: {
-                            color: '#e0e0e0'
-                        }
-                    }
-                }
-            }
-        });
-    }
-    /// Attach event listener for carbon credits calculation
-    const creditsForm = document.getElementById('calculation-form');
-    creditsForm.addEventListener('submit', (event) => {
-        event.preventDefault(); 
-        calculateCredits(); // Calculate and update results
-    });
-   
+    });  
 });
 
 
