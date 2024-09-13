@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Neutrality in Coal Mining</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Achieve Carbon Neutrality in Coal Mining</h1>
+                <p>Input your data, calculate emissions, and visualize your path to sustainability.</p>
+                <button id="get-started-btn">Get Started</button>
+            </div>
+        </section>
+    </header>
+
+    <section id="form-section" class="form-section">
+        <div class="form-container">
+            <h2>Calculate Your Mine’s Carbon Footprint</h2>
+            <p>Enter the data below to calculate emissions and carbon sinks.</p>
+            <form id="carbon-calculation-form">
+                <div class="form-group">
+                    <label for="coal-extraction-diesel">Coal Extraction:</label>
+                    <input type="number" id="coal-extraction-diesel" name="coal-extraction-diesel" placeholder="Diesel Usage (liters)" required>
+                </div>
+                <div class="form-group">
+                    <label for="crane-operation-diesel">Crane Operation:</label>
+                    <input type="number" id="crane-operation-diesel" name="crane-operation-diesel" placeholder="Diesel Usage (liters)" required>
+                </div>
+                <div class="form-group">
+                    <label for="transportation-diesel">Transportation:</label>
+                    <input type="number" id="transportation-diesel" name="transportation-diesel" placeholder="Diesel Usage (liters)" required>
+                </div>
+                <div class="form-group">
+                    <label for="coal-processing-electricity">Coal Processing/Crushing:</label>
+                    <input type="number" id="coal-processing-electricity" name="coal-processing-electricity" placeholder="Electricity Usage (kWh)" required>
+                </div>
+                <div class="form-group">
+                    <label for="water-pumping-electricity">Water Pumping:</label>
+                    <input type="number" id="water-pumping-electricity" name="water-pumping-electricity" placeholder="Electricity Usage (kWh)" required>
+                </div>
+                <div class="form-group">
+                    <label for="ventilation-electricity">Ventilation Systems:</label>
+                    <input type="number" id="ventilation-electricity" name="ventilation-electricity" placeholder="Electricity Usage (kWh)" required>
+                </div>
+                <div class="form-group">
+                    <label for="generators-diesel">Generators:</label>
+                    <input type="number" id="generators-diesel" name="generators-diesel" placeholder="Diesel Usage (liters)" required>
+                </div>
+                <div class="form-group">
+                    <label for="forest-area">Forest Area (acres):</label>
+                    <input type="number" id="forest-area" name="forest-area" placeholder="Forest Area (acres)" required>
+                </div>
+                <button type="submit">Calculate Emissions and Sinks</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="results-section" class="results-section">
+        <div class="results-container">
+            <h2>Calculation Results</h2>
+            <div class="emission-results">
+                <h3>Emission Results:</h3>
+                <ul>
+                    <li id="coal-extraction-emissions">Coal Extraction Emissions: 0 kg CO2</li>
+                    <li id="crane-operation-emissions">Crane Operation Emissions: 0 kg CO2</li>
+                    <li id="transportation-emissions">Transportation Emissions: 0 kg CO2</li>
+                    <li id="coal-processing-emissions">Coal Processing Emissions: 0 kg CO2</li>
+                    <li id="water-pumping-emissions">Water Pumping Emissions: 0 kg CO2</li>
+                    <li id="ventilation-emissions">Ventilation Systems Emissions: 0 kg CO2</li>
+                    <li id="generators-emissions">Generators Emissions: 0 kg CO2</li>
+                    <li id="total-emissions">Total Emissions: 0 kg CO2</li>
+                </ul>
+           
+
+            <div class="charts"></div>
+                <h3>Charts:</h3>
+                <canvas id="emission-chart"></canvas>
+            </div>
+
+            <div class="carbon-sink-results">
+                <h3>Carbon Sink Results:</h3>
+                <ul>
+                    <li id="carbon-absorption">Carbon Absorption: 0 tons CO2</li>
+                    <li id="emission-gap">Emission Gap: 0 kg CO2</li>
+                </ul>
+            </div>
+            <div class="charts">
+                <h3>Charts:</h3>
+                <canvas id="sink-chart"></canvas>
+                    <canvas id="gap-chart"></canvas>
+                </div>
+            </div>
+        </div>
+         </div>
+    </section>
+
+    <section id="pathways-section" class="pathways-section">
+        <div class="container">
+            <h2>Strategies for Achieving Carbon Neutrality</h2>
+            <div class="strategy" id="clean-technologies">
+                <h3>Clean Technologies</h3>
+                <p>Description: Clean technologies reduce environmental impact through efficient processes and renewable resources.</p>
+                <p>Examples: Electric vehicles, energy-efficient appliances, and low-emission manufacturing technologies.</p>
+            </div>
+            <div class="strategy" id="afforestation-reforestation">
+                <h3>Afforestation/Reforestation</h3>
+                <p>Description: Planting trees on deforested land or new areas to capture CO2 and restore ecosystems.</p>
+                <p>Benefits: Enhances biodiversity, improves air quality, and absorbs CO2.</p>
+            </div>
+            <div class="strategy" id="energy-efficiency-improvements">
+                <h3>Energy Efficiency Improvements</h3>
+                <p>Examples: Upgrading insulation, using energy-efficient lighting and appliances.</p>
+                <p>Expected Impact: Reduced energy consumption and lower greenhouse gas emissions.</p>
+            </div>
+            <div class="strategy" id="carbon-capture-storage">
+                <h3>Carbon Capture and Storage (CCS)</h3>
+                <p>Overview: Capturing CO2 emissions at their source and storing them underground.</p>
+                <p>Implementation: Involves capturing CO2 from industrial processes and transporting it to storage sites.</p>
+            </div>
+            <div class="strategy" id="renewable-energy-innovation">
+                <h3>Renewable Energy Innovation</h3>
+                <p>Potential: Expanding the use of renewable energy sources like solar, wind, and hydro power.</p>
+                <p>Benefits: Reduces reliance on fossil fuels and lowers carbon emissions.</p>
+            </div>
+            <div class="strategy" id="circular-economy-practices">
+                <h3>Circular Economy Practices</h3>
+                <p>Practices: Reusing, recycling, and minimizing waste to extend the lifecycle of products.</p>
+                <p>Impact: Reduces resource consumption and waste generation.</p>
+            </div>
+            <div class="strategy" id="algae-cultivation">
+                <h3>Algae Cultivation</h3>
+                <p>Method: Growing algae for biofuels and carbon capture.</p>
+                <p>Effectiveness: Algae can capture CO2 and be converted into renewable fuels.</p>
+            </div>
+            <div class="strategy" id="sustainable-land-management">
+                <h3>Sustainable Land Management</h3>
+                <p>Approaches: Practices that improve land health and productivity while reducing environmental impact.</p>
+                <p>Benefits: Enhances soil fertility, reduces erosion, and increases carbon sequestration.</p>
+            </div>
+            <div class="call-to-action">
+                <a href="additional-resources.html">Explore Strategies</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="credits-estimation" class="credits-estimation">
+        <div class="container">
+            <h2>Carbon Credits Estimation</h2>
+            <form id="calculation-form">
+                <div class="form-group">
+                    <label for="total-reduction">Total Reduction (tons CO2):</label>
+                    <input type="number" id="total-reduction" name="total-reduction" required>
+                </div>
+                <div class="form-group">
+                    <label for="market-rate">Market Rate (USD per credit):</label>
+                    <input type="number" id="market-rate" name="market-rate" required>
+                </div>
+                <button type="submit">Calculate</button>
+            </form>
+        </div>
+    </section>
+    <section id="credits-results" class="results-section">
+        <div class="results-container">
+            <h3>Results:</h3>
+            <div id="credits-results">
+                <ul>
+                    <li id="total-reduction-result">Total Reduction: 0 tons CO2</li>
+                    <li id="estimated-credits">Estimated Credits: 0 credits</li>
+                    <li id="estimated-value">Estimated Value: 0 USD</li>
+                </ul>
+            </div>
+
+            <div class="charts"></div>
+                <h3>Charts:</h3>
+                <canvas id="credits-chart"></canvas>
+                <canvas id="emissions-trend-chart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    
+    
+    <script src="script.js"></script>
+</body>
+</html>
