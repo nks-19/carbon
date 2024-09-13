@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbon Neutrality in Coal Mining</title>
     <link rel="stylesheet" href="style.css">
+    <link href="logo.png" type="icon" rel="icon"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -108,32 +109,33 @@
                     <ul>
                         <li id="coal-processing-emissions">Coal Processing Emissions: 0 Tons CO2</li>
                         <li id="coal-transportation-emissions">Coal Transportation Emissions: 0 Tons CO2</li>
-                        <li id="Coal-waste-emissionss">Coal Waste Emissionss: 0 Tons CO2</li>
+                        <li id="Coal-waste-emissionss">Coal Waste Emissions: 0 Tons CO2</li>
                         <li id="total-emissions">Total Emissions: 0 Tons CO2</li>
                     </ul>
-           
                 </div>
                 <div class="charts right">
-                    <h3>Charts:</h3>
+                    <h3>Emission Chart</h3>
                     <canvas id="emission-chart"></canvas>
                 </div>
             </div>
-
+    
             <div class="carbon-sink-results">
                 <div class="left">
                     <h3>Carbon Sink Results:</h3>
                     <ul>
                         <li id="forest-sink">Forest Absorption: 0 tons CO2</li>
-                        <li id="wet-lands">WetLands Absorption: 0 tons CO2</li>
+                        <li id="wet-lands">Wetlands Absorption: 0 tons CO2</li>
                         <li id="carbon-absorption">Total Carbon Absorption: 0 tons CO2</li>
                     </ul>
                 </div>
                 <div class="charts right">
-                    <h3>Charts:</h3>
+                    <h3>Carbon Sink Chart</h3>
+                    <div class="chart-sink">
                     <canvas id="sink-chart"></canvas>
                 </div>
+                </div>
             </div>
-           
+    
             <div class="emission-gap">
                 <div class="left">
                     <h3>Emissions Gap</h3>
@@ -142,11 +144,11 @@
                     </ul>
                 </div>
                 <div class="charts right">
-                    <h3>Charts:</h3>
+                    <h3>Emission gap Chart</h3>
                     <canvas id="gap-chart"></canvas>
                 </div>
-           </div>
-
+            </div>
+    
             <div class="neutrality">
                 <div class="left">
                     <h3>Neutrality:</h3>
@@ -154,24 +156,26 @@
                         <li id="reclaimed-mine-lands">Reclaimed Mine Lands Neutrality: 0 tons CO2</li>
                         <li id="buffer-zone">Buffer Zone Neutrality: 0 tons CO2</li>
                         <li id="wetLand-creation">WetLand Creation Neutrality: 0 tons CO2</li>
-                        <li id="argoforestry-area">Argoforestry Neutrality: 0 tons CO2</li>
+                        <li id="argoforestry-area">Agroforestry Neutrality: 0 tons CO2</li>
                         <li id="ccs-n">CCS Neutrality: 0 tons CO2</li>
                         <li id="total-neutrality">Total Neutrality: 0 tons CO2</li>
                     </ul>
                 </div>
                 <div class="charts right">
-                    <h3>Charts:</h3>
+                    <h3>Neutrality Chart</h3>
                     <canvas id="neutrality-chart"></canvas>
                 </div>
             </div>
-
+    
             <div class="carbon-credit">
-                <li id="total-neutrality">Carbon Credit: 0 credit</li>
+                <h3>Carbon Credit</h3>
+                <li id="carbon-credit">Carbon Credit: 0 credit</li>
             </div>
-
-            <div class="charts">
-                <h3>Charts:</h3>
+            <div class="charts"></div>
+                <h3>Emissions Trend Chart</h3>
+                <div class="chart-trend">
                 <canvas id="emissions-trend-chart"></canvas>
+            </div>
             </div>
         </div>
     </section>
