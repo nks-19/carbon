@@ -1,4 +1,3 @@
-const emissionLimit = 1000;
 document.addEventListener('DOMContentLoaded', () => {
     // Scroll to form section when "Get Started" button is clicked
     const getStartedButton = document.getElementById('get-started-btn');
@@ -40,15 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const machineryemissions=((miners+dragliners+excavators+crushers)*dieselEmissionFactor*350)/1000;
         const ventilationemissions = (ventilation * electricityEmissionFactor*30*24*350)/1000;
-
-        const processing=machineryemissions+ventilationemissions;
-
         const conveyorsemissions=(conveyors*electricityEmissionFactor*24*5*350)/1000;
         const railsemissions=(rails*0.5*200*5)/1000;
         const roadssemissions=(roads*0.3*3*100*350)/1000;
 
+        const processing=machineryemissions+ventilationemissions;
         const transportation=conveyorsemissions + railsemissions + roadssemissions;
-
         const wasteemissions=waste*3.6667*200;
 
         const totalEmissions=processing+transportation+wasteemissions;
@@ -68,19 +64,17 @@ document.addEventListener('DOMContentLoaded', () => {
          const totalneutrality=minelandsN+bufferzoneN+wetcreationN+argoN+ccs;
 
         // Update results
+        //emission
         document.getElementById('coal-processing-emissions').textContent = `Coal Processing Emissions: ${processing.toFixed(2)} tons CO2`;
         document.getElementById('coal-transportation-emissions').textContent = `Coal Transportation Emissions: ${transportation.toFixed(2)} tons CO2`;
         document.getElementById('Coal-waste-emissionss').textContent = `Coal Waste Emissions: ${wasteemissions.toFixed(2)} tons CO2`; 
         document.getElementById('total-emissions').textContent = `Total Emissions: ${totalEmissions.toFixed(2)} tons CO2`;
-
+        //sink
         document.getElementById('forest-sink').textContent = `Forest Absorption: ${forestsink.toFixed(2)} tons CO2`;
-        document.getElementById('wet-lands').textContent = `Wetlands Absorption: ${wetlandssink.toFixed(2)} tons CO2`;
-        
+        document.getElementById('wet-lands').textContent = `Wetlands Absorption: ${wetlandssink.toFixed(2)} tons CO2`; 
         document.getElementById('carbon-absorption').textContent = `Total Carbon Absorption (acres): ${totalCarbonAbsorption.toFixed(2)} tons CO2`;
-        document.getElementById('emission-gap').textContent = `Emission Gap: ${emissionGap.toFixed(2)} tons CO2`;
-
-        document.getElementById('wet-lands').textContent = `Wetlands Absorption: ${wetlandssink.toFixed(2)} tons CO2`;
-
+        //gap
+        document.getElementById('emission-gap').textContent = `Emission Gap: ${emissionGap.toFixed(2)} tons CO2`
         // neutrality update data
         document.getElementById('reclaimed-mine-lands').textContent = `Reclaimed Mine Lands Neutrality: ${minelandsN.toFixed(2)} tons CO2`;
         document.getElementById('buffer-zone').textContent = `Buffer Zone Neutrality: ${bufferzoneN.toFixed(2)} tons CO2`;
@@ -93,15 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Scroll to results section
         document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
-
-         // Show pathways section if emissions exceed limit
-         const pathwaysSection = document.getElementById('pathways-section');
-         if (totalEmissions > emissionLimit) {
-             pathwaysSection.style.display = 'block'; // Show pathways section
-         } else {
-             pathwaysSection.style.display = 'none'; // Hide pathways section
-         }  
-    
 
         // Create charts
         const ctx1 = document.getElementById('emission-chart').getContext('2d');
