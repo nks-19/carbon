@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const roads = parseFloat(document.getElementById('roads').value) || 0;
     
         // Retrieve values for coal waste emissions
-        const slag = parseFloat(document.getElementById('slag').value) || 0;
+        const waste = parseFloat(document.getElementById('slag').value) || 0;
         const blast = parseFloat(document.getElementById('blast').value) || 0;
         const employee = parseFloat(document.getElementById('employee').value) || 0;
 
@@ -106,7 +106,7 @@ addCoalMine({
 
     const processingEmissions = machineryEmissions + ventilationEmissions;
     const transportationEmissions = conveyorsEmissions + railsEmissions + roadsEmissions;
-    const slagEmission= slag * 3.6667 * 200;
+    const slagEmission= waste * 3.6667 * 200;
     const blastEmission=blast*0.26;
     const wasteEmissions=blastEmission+slagEmission;
 
@@ -211,7 +211,8 @@ addCoalMine({
                         '#4BC0C0', // Rail Emissions
                         '#9966FF', // Road Emissions
                         '#FF9F40', // slag Emissions
-                        '#FF9F60'//blast Emissions
+                        '#FF9F60',//blast Emissions
+                        '#FF9890'
                     ],
                     borderColor: [
                         '#FF6384',
