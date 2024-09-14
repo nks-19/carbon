@@ -240,7 +240,7 @@ button[type="submit"]:hover {
 }
 
 /* Flexbox for Sections */
-.emission-results, .carbon-sink-results, .emission-gap, .neutrality {
+.emission-results, .carbon-sink-results, .emission-gap, .neutrality{
     margin-bottom: 30px;
     display: flex;
     border-top:2px solid #333;
@@ -301,11 +301,10 @@ h3 {
 }
 
 /* Carbon Credit Section */
-#carbon-credit {
+#carbon-credit,#capita-emissions,#lands-required{
     margin-top: 20px;
     list-style: none;
 }
-
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .emission-results, .carbon-sink-results, .emission-gap, .neutrality {
@@ -325,5 +324,11 @@ h3 {
 @media (max-width: 480px) {
     .charts canvas {
         height: 250px; 
+    }
+}
+
+@media screen and (min-width:768px) {
+    .sink-data{
+        height: 300px;
     }
 }

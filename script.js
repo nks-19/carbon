@@ -1,3 +1,22 @@
+const apiUrl = "http://localhost:5000/api/user-coal-mines/many";
+const addCoalMine = async (coalMine) => {
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(coalMine),
+  });
+
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  return response.json();
+};
+
+
 document.addEventListener('DOMContentLoaded', () => {
       // Initially hide the results section
       const resultsSection = document.getElementById('results-section');
@@ -26,7 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const roads = parseFloat(document.getElementById('roads').value) || 0;
     
         // Retrieve values for coal waste emissions
-        const waste = parseFloat(document.getElementById('waste').value) || 0;
+        const slag = parseFloat(document.getElementById('slag').value) || 0;
+        const blast = parseFloat(document.getElementById('blast').value) || 0;
+        const employee = parseFloat(document.getElementById('employee').value) || 0;
+
+        const coal=parseFloat(document.getElementById('coal').value) || 0;
     
         // Retrieve values for carbon sink
         const forest = parseFloat(document.getElementById('forest').value) || 0;
@@ -40,7 +63,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const ccs = parseFloat(document.getElementById('ccs').value) || 0;
     
 
-
+// Call the addCoalMine function
+addCoalMine({
+    dieselUsage: {
+      extraction: miners,
+      crane: dragliners,
+      transportation: excavators,
+      generators: crushers,
+    },
+    electricityUsage: {
+      processing: ventilation,
+    },
+    transportation: {
+      conveyors,
+      rails,
+      roads,
+    },
+    waste,
+    carbonSink: {
+      forest,
+      wetlands,
+    },
+    neutrality: {
+      minelands,
+      bufferzone,
+      wetCreation,
+      argo,
+      ccs,
+    },
+  });
 
         // Emission Factors
     const dieselEmissionFactor = 2.68; // kg CO2 per liter
@@ -55,9 +106,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const processingEmissions = machineryEmissions + ventilationEmissions;
     const transportationEmissions = conveyorsEmissions + railsEmissions + roadsEmissions;
-    const wasteEmissions = waste * 3.6667 * 200;
+    const slagEmission= slag * 3.6667 * 200;
+    const blastEmission=blast*0.26;
+    const wasteEmissions=blastEmission+slagEmission;
+
+    const methane=coal*15;
+    const methaneEmission=(methane*25*0.717)/1000;
 
     const totalEmissions = processingEmissions + transportationEmissions + wasteEmissions;
+    // capita calculation
+    const capita=totalEmissions/employee;
 
     // Calculate carbon sinks
     const forestSink = forest * 5 * 350;
@@ -65,6 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const totalCarbonAbsorption = forestSink + wetlandsSink;
     const emissionGap = totalEmissions - totalCarbonAbsorption;
+
+    //lands required
+    const sequestrationrate=500;
+    const landrequired=emissionGap/sequestrationrate;
 
     // Calculate neutrality
     const minelandsN = minelands * 3 * 300;
@@ -78,7 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('coal-processing-emissions').textContent = `Coal Processing Emissions: ${processingEmissions.toFixed(2)} tons CO2`;
     document.getElementById('coal-transportation-emissions').textContent = `Coal Transportation Emissions: ${transportationEmissions.toFixed(2)} tons CO2`;
     document.getElementById('Coal-waste-emissionss').textContent = `Coal Waste Emissions: ${wasteEmissions.toFixed(2)} tons CO2`; 
-    document.getElementById('total-emissions').textContent = `Total Emissions: ${totalEmissions.toFixed(2)} tons CO2`;
+    document.getElementById('methane-emissions').textContent = `Methane Emissions: ${methaneEmission.toFixed(2)} tons CO2`; 
+    document.getElementById('total-emissions').textContent = ` Total Emissions: ${totalEmissions.toFixed(2)} tons CO2`;
+   
+    //per capita emissions 
+    document.getElementById('capita-emissions').textContent = `Per Capita Emissions:${capita.toFixed(2)} tons CO2 per annually`;
 
     // Carbon Sink
     document.getElementById('forest-sink').textContent = `Forest Absorption: ${forestSink.toFixed(2)} tons CO2`;
@@ -87,6 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Emission Gap
     document.getElementById('emission-gap').textContent = `Emission Gap: ${emissionGap.toFixed(2)} tons CO2`;
+
+
+    //lands required        
+    document.getElementById('lands-required').textContent = `Lands Required: ${landrequired.toFixed(2)} sq km`;
 
     // Neutrality
     document.getElementById('reclaimed-mine-lands').textContent = `Reclaimed Mine Lands Neutrality: ${minelandsN.toFixed(2)} tons CO2`;
@@ -120,7 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Conveyor Emissions',
                     'Rail Emissions',
                     'Road Emissions',
-                    'Waste Emissions'
+                    'Slag Emissions',
+                    'Blast Emissions'
                 ],
                 datasets: [{
                     label: 'Emissions (Tons CO2)',
@@ -130,7 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         conveyorsEmissions,
                         railsEmissions,
                         roadsEmissions,
-                        wasteEmissions
+                        slagEmission,
+                        blastEmission
                     ],
                     backgroundColor: [
                         '#FF6384', // Machinery Emissions
@@ -138,7 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         '#FFCE56', // Conveyor Emissions
                         '#4BC0C0', // Rail Emissions
                         '#9966FF', // Road Emissions
-                        '#FF9F40' // Waste Emissions
+                        '#FF9F40', // slag Emissions
+                        '#FF9F60'//blast Emissions
                     ],
                     borderColor: [
                         '#FF6384',
@@ -146,7 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         '#FFCE56',
                         '#4BC0C0',
                         '#9966FF',
-                        '#FF9F40'
+                        '#FF9F40',
+                        '#FF9F60'
                     ],
                     borderWidth: 1
                 }]
@@ -283,8 +357,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    });
-//Neutrality Chart
+
+        //Neutrality Chart
     new Chart(ctx4, {
         type: 'bar',
         data: {
@@ -351,6 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
+    });
+
     });
 
  });
