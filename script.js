@@ -110,7 +110,7 @@ addCoalMine({
     const blastEmission=blast*0.26;
     const wasteEmissions=blastEmission+slagEmission;
 
-    const methane=coal*15;
+    const methane=coal*15*300;
     const methaneEmission=(methane*25*0.717)/1000;
 
     const totalEmissions = processingEmissions + transportationEmissions + wasteEmissions;
@@ -221,7 +221,8 @@ addCoalMine({
                         '#4BC0C0',
                         '#9966FF',
                         '#FF9F40',
-                        '#FF9F60'
+                        '#FF9F60',
+                        '#FF9890'
                     ],
                     borderWidth: 1
                 }]
